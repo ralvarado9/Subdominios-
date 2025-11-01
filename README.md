@@ -50,8 +50,8 @@ You can run Dome with [Python](https://www.python.org/) 2 or 3. **Python3 is rec
 Install the dependencies and run the program
 
 ```sh
-git clone https://github.com/v4d1/Dome.git
-cd Dome
+git clone https://github.com/ralvarado9/Subdominios-
+cd Subdominios-
 pip install -r requirements.txt
 python dome.py --help
 ```
