@@ -4,6 +4,28 @@
 # Created by Vadi (github.com/v4d1)
 # Contact me at vadi@securihub.com
 
+# --- FIX TERMUX DNS + SILENCIAR SYNTAXWARNINGS ---
+import warnings
+# Silencia SyntaxWarning (advertencias por secuencias de escape)
+warnings.filterwarnings("ignore", category=SyntaxWarning)
+
+# Forzar resolvers DNS (evita que dnspython intente abrir /etc/resolv.conf)
+try:
+    import dns.resolver
+    # Crear un resolver sin leer archivos del sistema
+    resolver = dns.resolver.Resolver(configure=False)
+    resolver.nameservers = ['8.8.8.8', '1.1.1.1']  # Google y Cloudflare
+    # Asignar como resolver por defecto (usa el atributo interno si hace falta)
+    try:
+        dns.resolver.default_resolver = resolver
+    except Exception:
+        # algunos empaques usan la variable interna
+        dns.resolver._default_resolver = resolver
+except Exception:
+    # Si no existe dnspython (o falla), no detener la ejecución: se manejará más tarde al importar
+    pass
+# --- FIN FIX ---
+
 
 from __future__ import print_function #Python2 compatibility for prints
 import socket
